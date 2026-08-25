@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\AppuntamentoController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DisponibilitaController;
 use App\Http\Controllers\Api\MedicoController;
+use App\Http\Controllers\Api\RefertoController;
 use App\Http\Controllers\Api\SpecialitaController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +28,13 @@ Route::get('/disponibilita', [DisponibilitaController::class, 'index']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+
+    Route::get('/appuntamenti', [AppuntamentoController::class, 'index']);
+    Route::get('/appuntamenti/{appuntamento}', [AppuntamentoController::class, 'show']);
+    Route::post('/appuntamenti', [AppuntamentoController::class, 'store'])->middleware('ruolo:paziente');
+    Route::delete('/appuntamenti/{appuntamento}', [AppuntamentoController::class, 'destroy']);
+
+    Route::get('/referti', [RefertoController::class, 'index']);
+    Route::get('/referti/{referto}', [RefertoController::class, 'show']);
+    Route::post('/referti', [RefertoController::class, 'store'])->middleware('ruolo:medico');
 });
