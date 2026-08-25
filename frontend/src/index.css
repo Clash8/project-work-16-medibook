@@ -1,0 +1,523 @@
+/* --------------------------------------------------------------------------
+   MediBook - foglio di stile dell'interfaccia
+   Palette sobria di ambito sanitario, impaginazione responsive a griglia.
+   -------------------------------------------------------------------------- */
+
+:root {
+  --verde: #0f766e;
+  --verde-scuro: #115e59;
+  --verde-chiaro: #ccfbf1;
+  --grigio-100: #f8fafc;
+  --grigio-200: #e2e8f0;
+  --grigio-500: #64748b;
+  --grigio-800: #1e293b;
+  --rosso: #b91c1c;
+  --rosso-chiaro: #fee2e2;
+  --ambra: #b45309;
+  --ambra-chiaro: #fef3c7;
+  --raggio: 10px;
+  --ombra: 0 1px 3px rgba(15, 23, 42, 0.08), 0 6px 20px rgba(15, 23, 42, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--grigio-800);
+  background: var(--grigio-100);
+  line-height: 1.55;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.contenitore {
+  width: min(1080px, 100% - 2.5rem);
+  margin-inline: auto;
+}
+
+/* --- Intestazione --------------------------------------------------------- */
+
+.intestazione {
+  background: #fff;
+  border-bottom: 1px solid var(--grigio-200);
+}
+
+.intestazione__interno {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.9rem 0;
+  flex-wrap: wrap;
+}
+
+.marchio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--verde);
+  text-decoration: none;
+}
+
+.marchio__icona {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 8px;
+  background: var(--verde);
+  color: #fff;
+  font-weight: 700;
+}
+
+.navigazione {
+  display: flex;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+  margin-right: auto;
+}
+
+.navigazione a {
+  color: var(--grigio-500);
+  text-decoration: none;
+  font-size: 0.94rem;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+}
+
+.navigazione a:hover {
+  color: var(--verde);
+}
+
+.navigazione a.active {
+  color: var(--verde-scuro);
+  border-bottom-color: var(--verde);
+  font-weight: 600;
+}
+
+.intestazione__utente {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.utente__nome {
+  font-size: 0.9rem;
+  color: var(--grigio-500);
+}
+
+/* --- Struttura ------------------------------------------------------------ */
+
+.contenuto {
+  flex: 1;
+  padding: 2rem 0 3rem;
+}
+
+.pie {
+  border-top: 1px solid var(--grigio-200);
+  background: #fff;
+  padding: 1.2rem 0;
+  font-size: 0.85rem;
+  color: var(--grigio-500);
+}
+
+.scheda {
+  background: #fff;
+  border: 1px solid var(--grigio-200);
+  border-radius: var(--raggio);
+  box-shadow: var(--ombra);
+  padding: 1.75rem;
+}
+
+.scheda--stretta {
+  max-width: 460px;
+  margin-inline: auto;
+}
+
+.scheda h1 {
+  margin: 0 0 0.35rem;
+  font-size: 1.5rem;
+}
+
+.sottotitolo {
+  margin: 0 0 1.4rem;
+  color: var(--grigio-500);
+}
+
+.sezione {
+  margin-top: 2rem;
+}
+
+.sezione h2 {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.passo {
+  margin-top: 1.5rem;
+}
+
+.meta {
+  color: var(--grigio-500);
+  font-size: 0.9rem;
+}
+
+.nota {
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  color: var(--grigio-500);
+}
+
+.briciole {
+  font-size: 0.85rem;
+  color: var(--grigio-500);
+  margin-top: 0;
+}
+
+.briciole a,
+.nota a {
+  color: var(--verde);
+}
+
+/* --- Vetrina -------------------------------------------------------------- */
+
+.eroe {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde-scuro) 100%);
+  color: #fff;
+  border-radius: var(--raggio);
+  padding: 2.6rem 2rem;
+}
+
+.eroe h1 {
+  margin: 0 0 0.6rem;
+  font-size: 2rem;
+}
+
+.eroe p {
+  margin: 0;
+  max-width: 46ch;
+  opacity: 0.92;
+}
+
+.eroe__azioni {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Nella vetrina i bottoni sono allineati fra loro: il margine superiore
+   previsto per i moduli non si applica. */
+.eroe__azioni .bottone--primario {
+  margin-top: 0;
+}
+
+.cartellino {
+  background: #fff;
+  border: 1px solid var(--grigio-200);
+  border-radius: var(--raggio);
+  padding: 1.25rem;
+}
+
+.cartellino h3 {
+  margin: 0 0 0.4rem;
+  color: var(--verde-scuro);
+}
+
+.cartellino p {
+  margin: 0 0 0.5rem;
+  font-size: 0.92rem;
+}
+
+/* --- Griglie e moduli ----------------------------------------------------- */
+
+.griglia {
+  display: grid;
+  gap: 1rem;
+}
+
+.griglia--tre {
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+label {
+  display: block;
+  margin: 0.9rem 0 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--grigio-200);
+  border-radius: 8px;
+  font: inherit;
+  background: #fff;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--verde-chiaro);
+  border-color: var(--verde);
+}
+
+input:disabled,
+select:disabled {
+  background: var(--grigio-100);
+  color: var(--grigio-500);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.campo__errore {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--rosso);
+  font-size: 0.85rem;
+}
+
+/* --- Bottoni -------------------------------------------------------------- */
+
+.bottone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.bottone--primario {
+  background: var(--verde);
+  color: #fff;
+  margin-top: 1.4rem;
+}
+
+.bottone--primario:hover:not(:disabled) {
+  background: var(--verde-scuro);
+}
+
+.bottone:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.bottone--chiaro {
+  background: #fff;
+  color: var(--verde-scuro);
+  border-color: var(--grigio-200);
+}
+
+.bottone--chiaro:hover {
+  background: var(--verde-chiaro);
+}
+
+.bottone--piccolo {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.85rem;
+  margin-top: 0;
+  background: var(--grigio-100);
+  color: var(--verde-scuro);
+  border-color: var(--grigio-200);
+}
+
+.bottone--pericolo {
+  color: var(--rosso);
+  background: var(--rosso-chiaro);
+  border-color: transparent;
+}
+
+/* --- Slot di disponibilità ------------------------------------------------ */
+
+.slot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.slot__voce {
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--grigio-200);
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.slot__voce:hover {
+  border-color: var(--verde);
+  color: var(--verde-scuro);
+}
+
+.slot__voce--scelto {
+  background: var(--verde);
+  border-color: var(--verde);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* --- Tabelle ed elenchi --------------------------------------------------- */
+
+.tabella__contenitore {
+  overflow-x: auto;
+}
+
+.tabella {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.93rem;
+}
+
+.tabella th,
+.tabella td {
+  text-align: left;
+  padding: 0.75rem 0.6rem;
+  border-bottom: 1px solid var(--grigio-200);
+  white-space: nowrap;
+}
+
+.tabella th {
+  color: var(--grigio-500);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tabella__azioni {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.elenco {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.elenco__voce {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--grigio-200);
+}
+
+.elenco__voce h2 {
+  margin: 0 0 0.2rem;
+  font-size: 1.05rem;
+}
+
+/* --- Etichette di stato --------------------------------------------------- */
+
+.etichetta {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.etichetta--prenotato {
+  background: var(--verde-chiaro);
+  color: var(--verde-scuro);
+}
+
+.etichetta--completato {
+  background: var(--grigio-200);
+  color: var(--grigio-800);
+}
+
+.etichetta--annullato {
+  background: var(--rosso-chiaro);
+  color: var(--rosso);
+}
+
+/* --- Avvisi e stati ------------------------------------------------------- */
+
+.avviso {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.92rem;
+}
+
+.avviso--errore {
+  background: var(--rosso-chiaro);
+  color: var(--rosso);
+}
+
+.avviso--successo {
+  background: var(--verde-chiaro);
+  color: var(--verde-scuro);
+}
+
+.avviso--informazione {
+  background: var(--ambra-chiaro);
+  color: var(--ambra);
+}
+
+.stato {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem;
+  color: var(--grigio-500);
+  justify-content: center;
+}
+
+.spinner {
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid var(--grigio-200);
+  border-top-color: var(--verde);
+  border-radius: 50%;
+  animation: rotazione 0.8s linear infinite;
+}
+
+@keyframes rotazione {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .intestazione__interno {
+    gap: 0.75rem;
+  }
+
+  .eroe {
+    padding: 2rem 1.25rem;
+  }
+
+  .eroe h1 {
+    font-size: 1.6rem;
+  }
+
+  .elenco__voce {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
