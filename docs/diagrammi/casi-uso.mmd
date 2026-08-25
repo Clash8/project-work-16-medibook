@@ -1,0 +1,43 @@
+---
+title: MediBook - Diagramma dei casi d'uso
+---
+flowchart LR
+    paziente(["Paziente"])
+    medico(["Medico"])
+    admin(["Amministratore"])
+
+    subgraph sistema["Sistema MediBook"]
+        uc1(["Registrarsi"])
+        uc2(["Autenticarsi"])
+        uc3(["Consultare le specialita"])
+        uc4(["Consultare i medici"])
+        uc5(["Verificare le disponibilita"])
+        uc6(["Prenotare una visita"])
+        uc7(["Annullare una prenotazione"])
+        uc8(["Consultare i propri appuntamenti"])
+        uc9(["Consultare i propri referti"])
+        uc10(["Gestire la propria agenda"])
+        uc11(["Emettere un referto"])
+        uc12(["Gestire anagrafiche e specialita"])
+    end
+
+    paziente --> uc1
+    paziente --> uc2
+    paziente --> uc3
+    paziente --> uc4
+    paziente --> uc5
+    paziente --> uc6
+    paziente --> uc7
+    paziente --> uc8
+    paziente --> uc9
+
+    medico --> uc2
+    medico --> uc10
+    medico --> uc11
+    medico --> uc9
+
+    admin --> uc2
+    admin --> uc12
+
+    uc6 -. include .-> uc5
+    uc11 -. include .-> uc10

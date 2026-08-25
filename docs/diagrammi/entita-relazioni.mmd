@@ -1,0 +1,61 @@
+---
+title: MediBook - Diagramma Entita-Relazione
+---
+erDiagram
+    USERS {
+        bigint id PK
+        varchar nome
+        varchar cognome
+        varchar email UK
+        varchar password
+        enum ruolo "paziente|medico|admin"
+        varchar telefono
+        varchar codice_fiscale UK
+        date data_nascita
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    SPECIALITA {
+        bigint id PK
+        varchar nome UK
+        text descrizione
+        smallint durata_visita_minuti
+        decimal costo
+    }
+
+    MEDICI {
+        bigint id PK
+        bigint user_id FK "UK"
+        bigint specialita_id FK
+        varchar numero_albo UK
+        text biografia
+        time ora_inizio
+        time ora_fine
+        json giorni_lavorativi
+    }
+
+    APPUNTAMENTI {
+        bigint id PK
+        bigint paziente_id FK
+        bigint medico_id FK
+        datetime data_ora
+        enum stato "prenotato|completato|annullato"
+        varchar motivo
+        text note
+    }
+
+    REFERTI {
+        bigint id PK
+        bigint appuntamento_id FK "UK"
+        varchar diagnosi
+        text descrizione
+        text prescrizione
+        date data_emissione
+    }
+
+    USERS ||--o| MEDICI : "e' anche"
+    SPECIALITA ||--o{ MEDICI : "raggruppa"
+    USERS ||--o{ APPUNTAMENTI : "prenota come paziente"
+    MEDICI ||--o{ APPUNTAMENTI : "riceve in agenda"
+    APPUNTAMENTI ||--o| REFERTI : "genera"

@@ -1,0 +1,87 @@
+---
+title: MediBook - Diagramma delle classi (dominio del back-end)
+---
+classDiagram
+    class User {
+        +int id
+        +string nome
+        +string cognome
+        +string email
+        +string password
+        +string ruolo
+        +string telefono
+        +string codice_fiscale
+        +date data_nascita
+        +getNomeCompletoAttribute() string
+        +isPaziente() bool
+        +isMedico() bool
+        +isAdmin() bool
+    }
+
+    class Specialita {
+        +int id
+        +string nome
+        +string descrizione
+        +int durata_visita_minuti
+        +decimal costo
+    }
+
+    class Medico {
+        +int id
+        +int user_id
+        +int specialita_id
+        +string numero_albo
+        +string biografia
+        +time ora_inizio
+        +time ora_fine
+        +array giorni_lavorativi
+        +getNomeCompletoAttribute() string
+        +lavoraIlGiorno(int giornoIso) bool
+    }
+
+    class Appuntamento {
+        +int id
+        +int paziente_id
+        +int medico_id
+        +datetime data_ora
+        +string stato
+        +string motivo
+        +string note
+        +isAnnullabile() bool
+    }
+
+    class Referto {
+        +int id
+        +int appuntamento_id
+        +string diagnosi
+        +string descrizione
+        +string prescrizione
+        +date data_emissione
+    }
+
+    class DisponibilitaService {
+        +slotLiberi(Medico, CarbonImmutable) Collection
+        +slotValido(Medico, CarbonImmutable) bool
+        -slotTeorici(Medico, CarbonImmutable) Collection
+        -slotOccupati(Medico, CarbonImmutable) Collection
+    }
+
+    class AppuntamentoPolicy {
+        +view(User, Appuntamento) bool
+        +delete(User, Appuntamento) bool
+    }
+
+    class RefertoPolicy {
+        +view(User, Referto) bool
+        +create(User, Appuntamento) bool
+    }
+
+    User "1" -- "0..1" Medico : profilo professionale
+    User "1" -- "0..*" Appuntamento : prenota
+    Specialita "1" -- "0..*" Medico : esercita
+    Medico "1" -- "0..*" Appuntamento : riceve
+    Appuntamento "1" -- "0..1" Referto : esita in
+    DisponibilitaService ..> Medico : usa
+    DisponibilitaService ..> Appuntamento : usa
+    AppuntamentoPolicy ..> Appuntamento : autorizza
+    RefertoPolicy ..> Referto : autorizza
