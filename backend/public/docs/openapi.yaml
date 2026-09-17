@@ -23,6 +23,8 @@ tags:
     description: Prenotazione, consultazione e annullamento delle visite.
   - name: Referti
     description: Emissione e consultazione degli esiti clinici.
+  - name: Amministrazione
+    description: Gestione dell'offerta sanitaria, riservata all'amministratore.
 
 paths:
   /api/register:
@@ -123,6 +125,28 @@ paths:
                   data:
                     type: array
                     items: { $ref: '#/components/schemas/Specialita' }
+    post:
+      tags: [Amministrazione]
+      summary: Crea una nuova specialita
+      description: Operazione riservata all'amministratore.
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/DatiSpecialita' }
+      responses:
+        '201':
+          description: Specialita creata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/Specialita' }
+        '401': { $ref: '#/components/responses/NonAutenticato' }
+        '403': { $ref: '#/components/responses/NonAutorizzato' }
+        '422': { $ref: '#/components/responses/ErroreValidazione' }
 
   /api/specialita/{specialita}:
     get:
@@ -143,6 +167,58 @@ paths:
                 properties:
                   data: { $ref: '#/components/schemas/Specialita' }
         '404': { $ref: '#/components/responses/NonTrovato' }
+    put:
+      tags: [Amministrazione]
+      summary: Modifica una specialita
+      description: Operazione riservata all'amministratore.
+      parameters:
+        - name: specialita
+          in: path
+          required: true
+          schema: { type: integer }
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/DatiSpecialita' }
+      responses:
+        '200':
+          description: Specialita aggiornata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/Specialita' }
+        '401': { $ref: '#/components/responses/NonAutenticato' }
+        '403': { $ref: '#/components/responses/NonAutorizzato' }
+        '404': { $ref: '#/components/responses/NonTrovato' }
+        '422': { $ref: '#/components/responses/ErroreValidazione' }
+    delete:
+      tags: [Amministrazione]
+      summary: Elimina una specialita
+      description: Operazione riservata all'amministratore; non consentita se alla specialita sono associati dei medici.
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: specialita
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Specialita eliminata
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errore' }
+        '401': { $ref: '#/components/responses/NonAutenticato' }
+        '403': { $ref: '#/components/responses/NonAutorizzato' }
+        '404': { $ref: '#/components/responses/NonTrovato' }
+        '409':
+          description: Specialita con medici associati
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errore' }
 
   /api/medici:
     get:
@@ -423,6 +499,15 @@ components:
         descrizione: { type: string, nullable: true }
         durata_visita_minuti: { type: integer, example: 30 }
         costo: { type: number, format: float, example: 120.00 }
+
+    DatiSpecialita:
+      type: object
+      required: [nome, durata_visita_minuti, costo]
+      properties:
+        nome: { type: string, maxLength: 100, example: Ortopedia }
+        descrizione: { type: string, nullable: true }
+        durata_visita_minuti: { type: integer, minimum: 10, maximum: 240, example: 30 }
+        costo: { type: number, format: float, minimum: 0, example: 110.00 }
 
     Medico:
       type: object

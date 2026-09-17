@@ -18,7 +18,8 @@ flowchart LR
         uc9(["Consultare i propri referti"])
         uc10(["Gestire la propria agenda"])
         uc11(["Emettere un referto"])
-        uc12(["Gestire anagrafiche e specialita"])
+        uc12(["Gestire le specialita"])
+        uc13(["Supervisionare appuntamenti e referti"])
     end
 
     paziente --> uc1
@@ -38,6 +39,7 @@ flowchart LR
 
     admin --> uc2
     admin --> uc12
+    admin --> uc13
 
     uc6 -. include .-> uc5
     uc11 -. include .-> uc10

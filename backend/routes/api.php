@@ -37,4 +37,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/referti', [RefertoController::class, 'index']);
     Route::get('/referti/{referto}', [RefertoController::class, 'show']);
     Route::post('/referti', [RefertoController::class, 'store'])->middleware('ruolo:medico');
+
+    Route::middleware('ruolo:admin')->group(function () {
+        Route::post('/specialita', [SpecialitaController::class, 'store']);
+        Route::put('/specialita/{specialita}', [SpecialitaController::class, 'update']);
+        Route::delete('/specialita/{specialita}', [SpecialitaController::class, 'destroy']);
+    });
 });

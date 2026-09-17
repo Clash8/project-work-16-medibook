@@ -160,7 +160,7 @@ prenotazioni e referti. Tutte le utenze usano la password `password123`.
 | Paziente | `paziente@medibook.test` | Ha una visita futura e un referto già emesso |
 | Medico | `giulia.bianchi@medibook.test` | Cardiologia, riceve lun-ven 09:00-17:00 |
 | Medico | `sara.ferrari@medibook.test` | Dermatologia, riceve mar e gio 08:30-13:30 |
-| Amministratore | `admin@medibook.test` | Utenza di direzione |
+| Amministratore | `admin@medibook.test` | Utenza di direzione: gestisce le specialità via API e consulta tutti gli appuntamenti e i referti |
 
 ## Documentazione delle API
 
@@ -193,6 +193,9 @@ Il file sorgente della specifica è `backend/public/docs/openapi.yaml`.
 | GET | `/api/referti` | token | Elenco dei referti, paginato |
 | GET | `/api/referti/{id}` | token | Dettaglio di un referto |
 | POST | `/api/referti` | token (medico) | Emissione del referto |
+| POST | `/api/specialita` | token (admin) | Creazione di una specialità |
+| PUT | `/api/specialita/{id}` | token (admin) | Modifica di una specialità |
+| DELETE | `/api/specialita/{id}` | token (admin) | Eliminazione di una specialità senza medici associati |
 
 Le risposte adottano i codici di stato HTTP semanticamente corretti
 (`200`, `201`, `401`, `403`, `404`, `409`, `422`, `429`) e un corpo JSON coerente;
@@ -224,7 +227,7 @@ gli indici sui campi più interrogati (`ruolo`, `stato`, `specialita_id`, `pazie
 
 La suite copre i casi d'uso principali e i percorsi di errore: autenticazione,
 filtri del catalogo, generazione degli slot, prenotazione (slot occupato, fuori orario,
-nel passato, ruolo errato), annullamento e autorizzazioni sui referti.
+nel passato, ruolo errato), annullamento, autorizzazioni sui referti e gestione delle specialità riservata all'amministratore.
 
 ```bash
 cd backend
@@ -232,7 +235,7 @@ php artisan test
 ```
 
 ```
-Tests:    27 passed (62 assertions)
+Tests:    33 passed (76 assertions)
 ```
 
 I test girano su SQLite in memoria, senza toccare la base dati di sviluppo.
@@ -252,6 +255,7 @@ Il test funzionale dell'interfaccia è documentato in [`docs/screenshot/`](docs/
 | `07-referto.png` | Dettaglio di un referto |
 | `08-agenda-medico.png` | Agenda del medico autenticato |
 | `09-swagger.png` | Documentazione Swagger UI delle API |
+| `10-swagger-endpoint.png` | Endpoint di appuntamenti, referti e amministrazione in Swagger UI |
 
 ## Scelte progettuali di rilievo
 
